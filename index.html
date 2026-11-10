@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DeepSeek Feiyu: Asleep on the Way Home</title>
+  <link rel="stylesheet" href="wallpaper.css">
+</head>
+<body>
+  <video id="scene" autoplay muted loop playsinline preload="auto" disablepictureinpicture poster="assets/window.jpg" aria-hidden="true">
+    <source src="assets/bus.webm" type="video/webm">
+  </video>
+  <div class="shade" aria-hidden="true"></div>
+  <main>
+    <div class="calendar"><i aria-hidden="true"></i><span id="date"></span></div>
+    <div class="clock"><time id="clock"></time><span id="seconds" aria-hidden="true"></span></div>
+    <section id="media" data-mode="idle" aria-label="系统媒体">
+      <div class="track-row">
+        <i class="state" aria-hidden="true"></i>
+        <div class="track-copy">
+          <div id="track"></div>
+          <div id="artist"></div>
+        </div>
+      </div>
+      <canvas id="wave" aria-label="系统音频波形"></canvas>
+      <div id="thought" aria-live="off"><i aria-hidden="true"></i><span></span></div>
+    </section>
+  </main>
+  <script src="wallpaper.js"></script>
+</body>
+</html>

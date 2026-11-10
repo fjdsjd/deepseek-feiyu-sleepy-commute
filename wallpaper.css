@@ -1,0 +1,77 @@
+:root {
+  --milk: #f8edda;
+  --amber: #edba78;
+  --date-size: clamp(12px, min(1.1vw, 2vh), 27px);
+  --clock-size: clamp(53px, min(6.8vw, 12vh), 178px);
+  --track-size: clamp(17px, min(1.8vw, 3.1vh), 41px);
+  font-family: "Microsoft YaHei UI", "Microsoft YaHei", sans-serif;
+  color: var(--milk);
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { width: 100%; height: 100%; margin: 0; overflow: hidden; background: #211d24; }
+body { user-select: none; }
+#scene, .shade { position: absolute; inset: 0; width: 100%; height: 100%; }
+#scene { object-fit: cover; object-position: 38% 36%; pointer-events: none; }
+.shade { background: linear-gradient(90deg, transparent 48%, rgba(25,20,27,.13) 66%, rgba(25,20,27,.32) 100%); }
+main {
+  position: absolute;
+  width: clamp(235px, min(27vw, 49vh), 690px);
+  right: 6.7%;
+  top: 49%;
+  text-shadow: 0 1px 6px #191317aa, 0 2px 20px #1913178c;
+}
+.calendar { display: flex; align-items: center; gap: .75em; font-size: var(--date-size); letter-spacing: .12em; font-weight: 400; color: #f1d9b3; }
+.calendar i { width: 1.48em; height: 1.5px; background: var(--amber); opacity: .9; }
+.clock { display: flex; align-items: baseline; gap: .14em; font-size: var(--clock-size); margin: .055em 0 .14em; white-space: nowrap; }
+time, #seconds { font-family: "Bahnschrift", "Segoe UI", sans-serif; font-weight: 300; font-variant-numeric: tabular-nums; }
+time { line-height: 1.04; letter-spacing: -.044em; }
+#seconds { color: #e8bd8a; font-size: .224em; letter-spacing: .04em; }
+#media { position: relative; min-height: clamp(65px, 11vh, 168px); padding-top: clamp(10px, 1.4vh, 23px); }
+#media::before { content: ""; position: absolute; top: 0; left: 0; width: 100%; height: 1px; background: linear-gradient(90deg,#e5c29670,#e5c29630); transition: width .6s; }
+#media[data-mode="idle"]::before { width: 27%; }
+.track-row { display: flex; align-items: flex-start; gap: clamp(10px, .75vw, 22px); }
+.track-copy { min-width: 0; }
+#track {
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+  overflow-wrap: anywhere; line-height: 1.32; font-size: var(--track-size); 
+  font-family: "Noto Serif SC", "Source Han Serif SC", "SimSun", Georgia, serif; font-weight: 500;
+}
+#artist { margin-top: .28em; font-size: var(--date-size); opacity: .84; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+#artist:empty { display: none; }
+.state { display: block; flex: none; width: .58em; height: .62em; font-size: var(--track-size); margin-top: .34em; background: var(--amber); }
+[data-mode="playing"] .state { clip-path: polygon(12% 0, 98% 50%, 12% 100%); }
+[data-mode="idle"] .track-row, [data-mode="idle"] #wave { visibility: hidden; }
+#thought {
+  position: absolute; inset: clamp(14px, 2vh, 34px) 0 auto; display: flex; align-items: baseline; gap: .6em;
+  font: 400 clamp(15px,min(1.49vw,2.75vh),39px)/1.75 "Noto Serif SC","SimSun",serif;
+  letter-spacing: .055em; color: #f0ddc0; opacity: 0; pointer-events: none;
+  transition: opacity 1s ease;
+}
+#thought i { width: .42em; height: .42em; border-radius: 50%; flex: none; align-self: flex-start; margin-top: .5em; box-shadow: -.13em .08em 0 #edba78; transform: rotate(-20deg); }
+#media[data-mode="idle"] #thought.visible { opacity: .95; }
+#media[data-mode="playing"] #thought { visibility: hidden; }
+#wave { display: block; width: 100%; height: clamp(22px, 4.1vh, 75px); margin-top: clamp(5px, .8vh, 17px); }
+@media (min-aspect-ratio: 21/9) {
+  #scene { object-position: 40% 16%; }
+  main { right: 10%; top: 46%; }
+}
+@media (max-aspect-ratio: 4/3) {
+  #scene { object-position: 28% 36%; }
+  main { right: 5%; width: 32%; top: 54%; }
+}
+@media (max-aspect-ratio: 1/1) {
+  #scene { object-position: 25% center; }
+  .shade { background: linear-gradient(0deg, #17131bd6 0%, #1b161d68 26%, transparent 52%); }
+  main { top: auto; bottom: 7%; right: 7%; width: 57%; transform: none; }
+  :root { --clock-size: clamp(44px, 12vw, 122px); --track-size: clamp(17px, 3.5vw, 36px); --date-size: clamp(12px, 2.5vw, 24px); }
+  #thought { font-size: clamp(15px, 3.15vw, 30px); }
+}
+@media (max-height: 460px) and (min-aspect-ratio: 1/1) {
+  main { top: auto; bottom: 6%; transform: none; width: 36%; }
+  :root { --clock-size: clamp(32px, 12vh, 54px); --date-size: 11px; --track-size: 15px; }
+  #wave { height: 18px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  #thought, #media::before { transition: none; }
+}
